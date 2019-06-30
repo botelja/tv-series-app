@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import SeriesList from './SeriesList';
+import Loader from './Loader';
 
 const Series = () => {
   const [series, setSeries] = useState([]);
@@ -27,13 +28,13 @@ const Series = () => {
           onChange={handleSeriesInputChange}
         />
       </div>
-      {series.length === 0 && seriesName.trim() === '' && (
+      {!isFetching && series.length === 0 && seriesName.trim() === '' && (
         <p>Please enter series name into input</p>
       )}
-      {series.length === 0 && seriesName.trim() !== '' && (
+      {!isFetching && series.length === 0 && seriesName.trim() !== '' && (
         <p>No TV series was found with this name</p>
       )}
-      {isFetching && <p>Loading...</p>}
+      {isFetching && <Loader />}
       {!isFetching && <SeriesList list={series} />}
     </div>
   );
